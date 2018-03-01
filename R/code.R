@@ -17,7 +17,7 @@ win <- magick::image_composite(rectangle, book,
   magick::image_composite(chibi, offset = "+50+10") %>%
   magick::image_annotate(paste0(" The winner of this fantastic book\n is ",
                                 winner$name, " (@",
-                                winner$screen_name, ")!    "),
+                                winner$screen_name, ")!"),
                          location = "+400+70",
                          boxcolor = "white",
                          color = "#E8830C",
