@@ -3,9 +3,6 @@
 
 deardata_url <- "https://images-na.ssl-images-amazon.com/images/I/51Hli3QtxcL._SX358_BO1,204,203,200_.jpg"
 
-library(magick)
-library(reshape2)
-library(dplyr)
 library(tidygraph)
 library(particles)
 library(animation)
@@ -16,7 +13,7 @@ winner <- dplyr::sample_n(followers, size = 1) %>%
   rtweet::lookup_users()
 
 plot_fun <- function(sim, winner) {
-  df <- as_tibble(sim)
+  df <- tibble::as_tibble(sim)
   par(bg = "#2165B6", family = "contrail", cex = 2)
   plot(c(min(df$x), max(df$x)),
        c(min(df$y), max(df$y)),
@@ -30,13 +27,13 @@ plot_fun <- function(sim, winner) {
          xlim = c(-100, 317), ylim = c(-268, 100), xlab = NA, ylab = NA)
 }
 
-logo <- image_read(deardata_url) %>%
-  image_scale('55%')
+book <- magick::image_read(deardata_url) %>%
+  magick::image_scale('55%')
 
-logo_frame <- melt(as.matrix(as.raster(logo)), c('y', 'x'),
+book_frame <- reshape2::melt(as.matrix(as.raster(book)), c('y', 'x'),
                    value.name = 'color', as.is = TRUE) %>%
-  filter(!color == 'transparent') %>%
-  mutate(color = as.character(color),
+  dplyr::filter(!color == 'transparent') %>%
+  dplyr::mutate(color = as.character(color),
          y = -y,
          batch = as.integer(cut(-x + rnorm(n(), 0, 10), 50)),
          include = FALSE,
@@ -44,7 +41,7 @@ logo_frame <- melt(as.matrix(as.raster(logo)), c('y', 'x'),
          x_drift = rnorm(n(), 300, 90))
 
 saveGIF(
-  tbl_graph(logo_frame) %>%
+  tbl_graph(book_frame) %>%
     simulate(alpha_decay = 0, setup = predefined_genesis(x, y)) %>%
     wield(y_force, y = y_drift, include = include, strength = 0.02) %>%
     wield(x_force, x = x_drift, include = include, strength = 0.02) %>%
