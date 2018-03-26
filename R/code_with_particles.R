@@ -3,35 +3,43 @@
 
 deardata_url <- "https://images-na.ssl-images-amazon.com/images/I/51Hli3QtxcL._SX358_BO1,204,203,200_.jpg"
 
-library(magick)
 library(reshape2)
 library(dplyr)
 library(tidygraph)
 library(particles)
 library(animation)
+chibi <- magick::image_read("assets/wizard_steph.png") %>%
+  magick::image_resize("200x200")
 # draw one follower
 followers <- rtweet::get_followers("lockedata")
 set.seed("20180401")
 winner <- dplyr::sample_n(followers, size = 1) %>%
   rtweet::lookup_users()
 
-plot_fun <- function(sim, winner) {
+plot_fun <- function(sim, winner, chibi) {
   df <- as_tibble(sim)
-  par(bg = "#2165B6")
-  plot(c(min(df$x), max(df$x)),
-       c(min(df$y), max(df$y)),
-       col = "#2165B6", axes = FALSE,
+  fig <- magick::image_graph(width = 417, height = 368, res = 96,
+                             bg = "#2165B6")
+
+  fig <- magick::image_annotate(fig, paste0(winner$name, "\n(@",
+                                     winner$screen_name, ")!"),
+                                location = "+70+0",
+                                color = "black",
+                                boxcolor = "transparent",
+                                font = "contrail",
+                                size = 30)
+
+  # plot of the book
+  plot(df$x, df$y, col = df$color, pch = '.', axes = FALSE,
        xlim = c(-100, 317), ylim = c(-268, 100), xlab = NA, ylab = NA)
-  legend(50, 0, legend = paste0(winner$name, "\n(@",
-                                                         winner$screen_name, ")!"),
-         box.lwd = 0,box.col = "#2165B6",bg = "#2165B6",
-         text.col = "#E8830C", text.width = 20)
-  points(df$x, df$y, col = df$color, pch = '.', axes = FALSE,
-       xlim = c(-100, 317), ylim = c(-268, 100), xlab = NA, ylab = NA)
+  dev.off()
+  # chibi
+  out <- magick::image_composite(fig, chibi, offset = "+5+100")
+  print(out)
 }
 
-logo <- image_read(deardata_url) %>%
-  image_scale('55%')
+logo <- magick::image_read(deardata_url) %>%
+  magick::image_scale('55%')
 
 logo_frame <- melt(as.matrix(as.raster(logo)), c('y', 'x'),
                    value.name = 'color', as.is = TRUE) %>%
@@ -50,27 +58,12 @@ saveGIF(
     wield(x_force, x = x_drift, include = include, strength = 0.02) %>%
     wield(random_force, xmin = -.1, xmax = .1, ymin = -.1, ymax = .1,
           include = include) %>%
-    evolve(120, function(sim) {
+    evolve(10, function(sim) {
       sim <- record(sim)
       sim <- mutate(sim, include = batch < evolutions(sim) - 10)
-      plot_fun(sim, winner)
+      plot_fun(sim, winner, chibi)
       sim
     }),
   movie.name = 'deardata.gif',
   interval = 1/24, ani.width = 594, ani.height = 822
 )
-
-
-# now add chibi
-chibi <- magick::image_read("assets/wizard_steph.png") %>%
-  magick::image_resize("230x230")
-gif <- magick::image_read('deardata.gif')
-gif_with_chibi <- magick::image_composite(gif, chibi,
-                                          offset = "+5+550")
-
-
-
-final_gif <- magick::image_animate(gif_with_chibi, fps = 10)
-magick::image_write(final_gif, "tada.gif")
-
-file.remove("deardata.gif")
