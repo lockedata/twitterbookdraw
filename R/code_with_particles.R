@@ -70,16 +70,15 @@ saveGIF(
 # via using magick drawing/graphic device but wasn't too successful
 # it is a pity because here the image_write takes aaages
 chibi <- magick::image_read("assets/wizard_steph.png") %>%
-  magick::image_resize("230x230")
+  magick::image_resize("200x200")
 
 magick::image_read('deardata.gif') %>%
-  .[110] %>%
   # cool people wouldn't crop here
   # bc they'd have been smarter earlier in the process
   magick::image_crop("480x382+0+98") %>%
   magick::image_crop("433x382") %>%
-  magick::image_composite(chibi, offset = "+5+550") %>%
-  magick::image_animate(gif_with_chibi, fps = 10) %>%
-  magick::image_write(final_gif, "april_tada.gif")
+  magick::image_composite(chibi, offset = "+5+100") %>%
+  magick::image_animate(fps = 10) %>%
+  magick::image_write("april_tada.gif")
 
 file.remove("deardata.gif")
