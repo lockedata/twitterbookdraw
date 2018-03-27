@@ -78,6 +78,9 @@ magick::image_read('deardata.gif') %>%
   magick::image_crop("480x382+0+98") %>%
   magick::image_crop("433x382") %>%
   magick::image_composite(chibi, offset = "+5+100") %>%
+  magick::image_annotate(text = " Hey pResto! This month's winner is ...",
+                         font = "contrail", gravity = "southwest",
+                         color = "white", size = 25) %>%
   magick::image_animate(fps = 10) %>%
   magick::image_write("april_tada.gif")
 
