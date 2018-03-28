@@ -1,0 +1,8 @@
+Imports: magick,
+  tibble,
+  dplyr,
+  reshape2,
+  rtweet,
+  tidygraph,
+  particles,
+  animation
