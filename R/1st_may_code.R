@@ -2,6 +2,15 @@ library("particles")
 library("tidygraph")
 library("ggplot2")
 library("gganimate")
+
+# circle needed later
+# from particles::petridish_genesis
+radius <- 10
+angle <- seq(0,(2*pi), length = 100)
+pos <- cbind(sqrt(radius) * cos(angle), sqrt(radius) *
+               sin(angle))
+
+
 # get all followers
 set.seed(20180501)
 follower_ids <- rtweet::get_followers("lockedata")
@@ -14,11 +23,10 @@ colors <- charlatan::ch_hex_color(n = nrow(followers))
 # now simulate an aquarium of followers
 sim <- create_lattice(nrow(followers)) %>%
   simulate(velocity_decay = 0.6, setup = petridish_genesis(vel_max = 0)) %>%
-  wield(link_force) %>%
-  wield(manybody_force) %>%
+  wield(random_force) %>%
     impose(polygon_constraint,
-           polygon = cbind(c(-100, -100, 100, 100), c(-100, 100, 100, -100))) %>%
-    evolve(50, function(sim) {
+           polygon = pos) %>%
+    evolve(10, function(sim) {
       sim <- record(sim)
       sim
     })
@@ -36,7 +44,14 @@ sim_df <- purrr::map2_df(sim$history, 1:length(sim$history),
                          transform_to_df,
                          followers)
 
+# change trajectory for the winner
+sim_df$x[sim_df$name == winner] <- seq(sim_df$x[sim_df$name == winner][1], to = 0,
+                                       length = length(unique(sim_df$step)))
+sim_df$y[sim_df$name == winner] <- seq(sim_df$y[sim_df$name == winner][1], to = 0,
+                                       length = length(unique(sim_df$step)))
+
 # gif as in http://www.masalmon.eu/2017/02/18/complot/
+
 plot_one_step <- function(df, colors, winner){
   p <- ggplot(df) +
     geom_text(aes(x, y, label = name,
@@ -54,9 +69,13 @@ plot_one_step <- function(df, colors, winner){
   outfil
 }
 
+logo <- magick::image_read("assets/logo.png")
+logo <- magick::image_resize(logo, "200x200")
+
 split(sim_df, sim_df$step) %>%
   purrr::map(plot_one_step, colors = colors, winner = winner) %>%
   purrr::map(magick::image_read) %>%
+  magick::image_composite(logo) %>%
   magick::image_join() %>%
   magick::image_animate(fps=1) %>%
   magick::image_write("bagoffollowers.gif")

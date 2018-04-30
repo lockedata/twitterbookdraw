@@ -19,6 +19,10 @@ Produce a visualization of the winner of the book of the month
 
 * Also tweak if the winner name is too long. Tweak `par(bg = "#2165B6", family = "contrail", cex = 1.7)` with a different value of `cex` (text size) and `legend(-52, 0` with a different position (x, y, with the origin being somewhere in the middle, sorry haven't thought about it more). When tweaking make `evolve(120` `evolve(1` this way it's faster. It shows only the first frame, and the book should hide the name.
 
+# May code
+
+[here](R/1st_may_code.R)
+
 # Future plans
 
 * Make it a package
