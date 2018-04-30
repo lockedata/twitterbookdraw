@@ -56,17 +56,18 @@ plot_one_step <- function(df, colors, winner){
   outfil <- paste0("may_files/sim_", df$step[1], ".png")
   ggsave(outfil, p, width=5, height=5)
 
-  outfil
 }
 
 logo <- magick::image_read("assets/logo.png")
-logo <- magick::image_resize(logo, "200x200")
+logo <- magick::image_resize(logo, "400x400")
 
 split(sim_df, sim_df$step) %>%
-  purrr::map(plot_one_step, colors = colors, winner = winner) %>%
-  purrr::map(magick::image_read)%>%
+  purrr::walk(plot_one_step, colors = colors, winner = winner)
+
+dir("may_files", full.names = TRUE) %>%
+  purrr::map(magick::image_read) %>%
   magick::image_join()  %>%
-  magick::image_composite(logo) %>%
+  magick::image_composite(logo, offset = "+50+50") %>%
   magick::image_animate(fps=1) %>%
   magick::image_write("bagoffollowers.gif")
 
