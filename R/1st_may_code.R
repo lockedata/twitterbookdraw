@@ -3,14 +3,6 @@ library("tidygraph")
 library("ggplot2")
 library("gganimate")
 
-# circle needed later
-# from particles::petridish_genesis
-radius <- 10
-angle <- seq(0,(2*pi), length = 100)
-pos <- cbind(sqrt(radius) * cos(angle), sqrt(radius) *
-               sin(angle))
-
-
 # get all followers
 set.seed(20180501)
 follower_ids <- rtweet::get_followers("lockedata")
@@ -24,8 +16,6 @@ colors <- charlatan::ch_hex_color(n = nrow(followers))
 sim <- create_lattice(nrow(followers)) %>%
   simulate(velocity_decay = 0.6, setup = petridish_genesis(vel_max = 0)) %>%
   wield(random_force) %>%
-    impose(polygon_constraint,
-           polygon = pos) %>%
     evolve(10, function(sim) {
       sim <- record(sim)
       sim
@@ -74,9 +64,9 @@ logo <- magick::image_resize(logo, "200x200")
 
 split(sim_df, sim_df$step) %>%
   purrr::map(plot_one_step, colors = colors, winner = winner) %>%
-  purrr::map(magick::image_read) %>%
+  purrr::map(magick::image_read)%>%
+  magick::image_join()  %>%
   magick::image_composite(logo) %>%
-  magick::image_join() %>%
   magick::image_animate(fps=1) %>%
   magick::image_write("bagoffollowers.gif")
 
