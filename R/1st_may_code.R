@@ -100,12 +100,14 @@ purrr::walk(1:20, plot_win,
             sim_df[sim_df$step == max_it,], colors = colors)
 
 logo <- magick::image_read("assets/logo.png")
-logo <- magick::image_resize(logo, "400x400")
+logo <- magick::image_resize(logo, "200x200")
 
+# didn't work so used an online tool!
+library("magrittr")
 dir("may_files", full.names = TRUE) %>%
-  purrr::map(magick::image_read) %>%
-  magick::image_join()  %>%
-  magick::image_composite(logo, offset = "+50+50") %>%
-  magick::image_animate(fps=10) %>%
-  magick::image_write("bagoffollowers.gif")
+    magick::image_read() %>%
+    magick::image_resize("600x")  %>%
+    magick::image_composite(logo, offset = "+10+10") %>%
+    magick::image_animate(fps=10) %>%
+    magick::image_write("bagoffollowers.gif")
 
