@@ -11,8 +11,8 @@ followers <- rtweet::lookup_users(follower_ids$user_id)
 winner <- sample_n(followers, size = 1)$screen_name
 # draw one random colour per follower
 colors <- charlatan::ch_hex_color(n = nrow(followers))
-colors[followers$screen_name == winner] <- "#FFFFFF"
-
+colors[followers$screen_name == winner] <- "#2165B6"
+names(colors) <- followers$screen_name
 # convert to data.frame
 
 transform_to_df <- function(sim, step, followers){
@@ -66,7 +66,7 @@ plot_one_step <- function(df, colors){
     theme(legend.position = "none")+
     theme(text=element_text(family="Roboto", size=14)) +
     ylim(-11, 14)
-  outfil <- paste0("may_files/sim_", df$step[1], ".png")
+  outfil <- paste0("may_files/sim_", stringr::str_pad(df$step[1], 2, pad = "0"), ".png")
   ggsave(outfil, p, width=5, height=5)
 
 }
@@ -77,33 +77,35 @@ split(sim_df, sim_df$step) %>%
 
 
 
+colors[followers$screen_name == winner] <- "#FFFFFF"
 plot_win <- function(step, df, colors){
   p <- ggplot(df) +
     geom_text(aes(x, y, label = name,
                   col = name),
               size = 2) +
     geom_text(aes(x, y, label = name),
-              col = "#2165B6", size = step/10*15,
+              col = "#2165B6", size = step/20*15,
               data = df[df$name == winner,]) +
-    scale_color_manual(values = colors)+
+    scale_color_manual(name = colors,
+                       values = colors)+
     theme_void() +
     theme(legend.position = "none")+
     theme(text=element_text(family="Roboto", size=14)) +
     ylim(-11, 14)
-  outfil <- paste0("may_files/Bsim_", step, ".png")
+  outfil <- paste0("may_files/ZZZsim_", stringr::str_pad(step, 2, pad = "0"), ".png")
   ggsave(outfil, p, width=5, height=5)
 
 }
-purrr::walk(1:10, plot_win,
+purrr::walk(1:20, plot_win,
             sim_df[sim_df$step == max_it,], colors = colors)
 
 logo <- magick::image_read("assets/logo.png")
 logo <- magick::image_resize(logo, "400x400")
 
-dir("may_files", full.names = TRUE)[1:10] %>%
+dir("may_files", full.names = TRUE) %>%
   purrr::map(magick::image_read) %>%
   magick::image_join()  %>%
-  magick::image_composite(logo, offset = "50+50") %>%
+  magick::image_composite(logo, offset = "+50+50") %>%
   magick::image_animate(fps=10) %>%
   magick::image_write("bagoffollowers.gif")
 
