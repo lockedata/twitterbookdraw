@@ -1,3 +1,13 @@
+Package: locketweet
+Version: 0.0.0.9000
+Title: Creates Twitter Book Draw Materials
+Description: The package contains code to draw a random follower and to announce their winning a book.
+Authors@R: person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = c("aut", "cre"))
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
+RoxygenNote: 6.0.1.9000
 Imports: magick,
   tibble,
   dplyr,

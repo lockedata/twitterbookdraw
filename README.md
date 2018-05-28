@@ -3,30 +3,22 @@ Produce a visualization of the winner of the book of the month
 
 
 
-# March code
+# 2018-03-01
 
-[Here](code.R)
+[Code](inst/legacy/2018-03-01-allaire.R)
 
-# April code
+<blockquote class="twitter-tweet" data-lang="ca"><p lang="en" dir="ltr">This month&#39;s book 📕 winner is <a href="https://twitter.com/kevbros93?ref_src=twsrc%5Etfw">@kevbros93</a>! 🏆<br><br>Kevin, DM us to give us your address :)<a href="https://t.co/ZPfNzJlrdD">https://t.co/ZPfNzJlrdD</a> <a href="https://t.co/zc0IePm96q">pic.twitter.com/zc0IePm96q</a></p>&mdash; Locke Data (@LockeData) <a href="https://twitter.com/LockeData/status/969167624847462400?ref_src=twsrc%5Etfw">1 de març de 2018</a></blockquote>
 
-[Here](code_with_particles.R)
+# 2018-04-01
 
-* Install dependencies stated in [DESCRIPTION](DESCRIPTION)
+[Code](inst/legacy/2018-04-01-dear-data.R)
 
-* Prepare [`rtweet` authentication](http://rtweet.info/articles/auth.html).
+<blockquote class="twitter-tweet" data-lang="ca"><p lang="en" dir="ltr">The winner 🏆 of our March Book 📕 giveaway is <a href="https://twitter.com/sqlStride?ref_src=twsrc%5Etfw">@sqlStride</a>! <br>Simon, you&#39;ve won a copy of Dear Data - DM us so we can get your address<br><br>📕: <a href="https://t.co/wQvFeiesaT">https://t.co/wQvFeiesaT</a><br>👩
+💻: <a href="https://t.co/UZT0o5VoUv">https://t.co/UZT0o5VoUv</a> <a href="https://t.co/zmCrQwT4ZL">pic.twitter.com/zmCrQwT4ZL</a></p>&mdash; Locke Data (@LockeData) <a href="https://twitter.com/LockeData/status/980753545262661634?ref_src=twsrc%5Etfw">2 d’abril de 2018</a></blockquote>
 
-* Run and change the random seed in set.seed if the winner is a previous winner or someone who works for Locke Data or a bot.
+# 2018-05-01
 
-* Also tweak if the winner name is too long. Tweak `par(bg = "#2165B6", family = "contrail", cex = 1.7)` with a different value of `cex` (text size) and `legend(-52, 0` with a different position (x, y, with the origin being somewhere in the middle, sorry haven't thought about it more). When tweaking make `evolve(120` `evolve(1` this way it's faster. It shows only the first frame, and the book should hide the name.
+[Code](inst/legacy/2018-05-01-tidytext.R)
 
-# May code
+<blockquote class="twitter-tweet" data-lang="ca"><p lang="en" dir="ltr"><a href="https://twitter.com/SQLBob?ref_src=twsrc%5Etfw">@SQLBob</a> won <a href="https://twitter.com/juliasilge?ref_src=twsrc%5Etfw">@juliasilge</a> and <a href="https://twitter.com/drob?ref_src=twsrc%5Etfw">@drob</a> fantastic book on NLP <a href="https://t.co/DEM04WY9W4">https://t.co/DEM04WY9W4</a>! :closed_book: Bob, DM us!<br><br>&quot;Bag of followers&quot; code <a href="https://t.co/L20gPDzLj6">https://t.co/L20gPDzLj6</a> thanks to <a href="https://twitter.com/thomasp85?ref_src=twsrc%5Etfw">@thomasp85</a>&#39;s particles <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> package <a href="https://t.co/GybtPcfMMI">pic.twitter.com/GybtPcfMMI</a></p>&mdash; Locke Data (@LockeData) <a href="https://twitter.com/LockeData/status/991401888057880576?ref_src=twsrc%5Etfw">1 de maig de 2018</a></blockquote>
 
-[here](R/1st_may_code.R)
-
-# Future plans
-
-* Make it a package
-
-* Winner drawing would be a separate function (and could use a black list made of people working for Locke Data, and could also use Mike Kearney's `botornot` to see if an account is likely to be a bot, in order to warn the person running the code)
-
-* Add the data about previous winners to the package

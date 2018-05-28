@@ -105,9 +105,8 @@ logo <- magick::image_resize(logo, "200x200")
 # didn't work so used an online tool!
 library("magrittr")
 dir("may_files", full.names = TRUE) %>%
-    magick::image_read() %>%
-    magick::image_resize("600x")  %>%
-    magick::image_composite(logo, offset = "+10+10") %>%
-    magick::image_animate(fps=10) %>%
-    magick::image_write("bagoffollowers.gif")
+  magick::image_read() %>%
+  magick::image_resize("600x600")  %>%
+  magick::image_composite(logo, offset = "+50+50") %>%
+  magick::image_write("bagoffollowers.gif", format = "gif")
 
