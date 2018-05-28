@@ -8,8 +8,13 @@
 #'
 #' @examples
 show_june_winner <- function(winner, path = "june.gif"){
+  # get winner's avatar
   winner_face <- magick::image_read(winner$profile_image_url) %>%
     magick::image_resize("150x150")
+
+  # create a sequence of varying opacities
+  # and for each opacity create a frame
+  # then join and animate frames
   frames <- purrr::map(c(seq(from = 100, to = 50, by = -5),
                          seq(from = 50, to = 100, by = 5),
                          seq(from = 100, to = 50, by = -5),
