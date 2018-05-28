@@ -12,4 +12,5 @@ Imports:
     magick,
     dplyr,
     rtweet,
-    magrittr
+    magrittr,
+    glue

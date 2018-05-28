@@ -9,6 +9,22 @@ Winners have always been sampled via R ( `twitteR` and now `rtweet`). Since 2018
 
 # Results!
 
+## 2018-06-01
+
+```r
+# devtools::install_github("lockedata/twitterbookdraw")
+# draw winner
+winner <- twitterbookdraw::draw_winner()
+
+# prepare tweet text
+book <- 'An Introduction to Statistical Learning: with Applications in R'
+twitterbookdraw::announce_winner(winner, book)
+
+# save gif as "june.gif"
+twitterbookdraw::show_june_winner(winner = winner, path = "june.gif")
+
+```
+
 ## 2018-05-01
 
 [Code](inst/legacy/2018-05-01-tidytext.R)
