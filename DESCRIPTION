@@ -8,11 +8,8 @@ Encoding: UTF-8
 LazyData: true
 ByteCompile: true
 RoxygenNote: 6.0.1.9000
-Imports: magick,
-  tibble,
-  dplyr,
-  reshape2,
-  rtweet,
-  tidygraph,
-  particles,
-  animation
+Imports: 
+    magick,
+    dplyr,
+    rtweet,
+    magrittr
