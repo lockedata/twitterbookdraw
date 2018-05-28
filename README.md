@@ -20,5 +20,7 @@ Produce a visualization of the winner of the book of the month
 
 [Code](inst/legacy/2018-05-01-tidytext.R)
 
+That month's creation was also described more thoroughly in [a blog post, "A particles-arly fun book draw"](https://itsalocke.com/blog/a-particles-arly-fun-book-draw/).
+
 <blockquote class="twitter-tweet" data-lang="ca"><p lang="en" dir="ltr"><a href="https://twitter.com/SQLBob?ref_src=twsrc%5Etfw">@SQLBob</a> won <a href="https://twitter.com/juliasilge?ref_src=twsrc%5Etfw">@juliasilge</a> and <a href="https://twitter.com/drob?ref_src=twsrc%5Etfw">@drob</a> fantastic book on NLP <a href="https://t.co/DEM04WY9W4">https://t.co/DEM04WY9W4</a>! :closed_book: Bob, DM us!<br><br>&quot;Bag of followers&quot; code <a href="https://t.co/L20gPDzLj6">https://t.co/L20gPDzLj6</a> thanks to <a href="https://twitter.com/thomasp85?ref_src=twsrc%5Etfw">@thomasp85</a>&#39;s particles <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> package <a href="https://t.co/GybtPcfMMI">pic.twitter.com/GybtPcfMMI</a></p>&mdash; Locke Data (@LockeData) <a href="https://twitter.com/LockeData/status/991401888057880576?ref_src=twsrc%5Etfw">1 de maig de 2018</a></blockquote>
 
