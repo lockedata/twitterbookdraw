@@ -7,9 +7,11 @@ winner <- dplyr::sample_n(followers, size = 1) %>%
   rtweet::lookup_users()
 
 rectangle <- magick::image_blank(1000, 500, color = "#2165B6")
-book <- magick::image_read("assets/allaire.jpg") %>%
+book <- magick::image_read(system.file("assets/allaire.jpg",
+                                       package="twitterbookdraw")) %>%
   magick::image_resize("300x300")
-chibi <- magick::image_read("assets/wizard_steph.png") %>%
+chibi <- magick::image_read(system.file("assets/wizard_steph.png",
+                                        package="twitterbookdraw")) %>%
   magick::image_resize("400x400")
 
 win <- magick::image_composite(rectangle, book,

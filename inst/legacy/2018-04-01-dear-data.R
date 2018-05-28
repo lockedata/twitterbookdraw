@@ -99,7 +99,8 @@ plot_win <- function(step, df, colors){
 purrr::walk(1:20, plot_win,
             sim_df[sim_df$step == max_it,], colors = colors)
 
-logo <- magick::image_read("assets/logo.png")
+logo <- magick::image_read(system.file("assets/logo.png",
+                                       package="twitterbookdraw"))
 logo <- magick::image_resize(logo, "200x200")
 
 # didn't work so used an online tool!

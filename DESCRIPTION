@@ -1,4 +1,4 @@
-Package: locketweet
+Package: twitterbookdraw
 Version: 0.0.0.9000
 Title: Creates Twitter Book Draw Materials
 Description: The package contains code to draw a random follower and to announce their winning a book.
