@@ -4,12 +4,14 @@
 \alias{announce_winner}
 \title{Prepare tweet text for the winner}
 \usage{
-announce_winner(winner, book)
+announce_winner(winner, book, book_url)
 }
 \arguments{
 \item{winner}{as given by twitterbookdraw::draw_winner()}
 
 \item{book}{Book title}
+
+\item{book_url}{Book url}
 }
 \description{
 Prepare tweet text for the winner
@@ -17,5 +19,6 @@ Prepare tweet text for the winner
 \examples{
 winner <- twitterbookdraw::draw_winner()
 book <- 'An Introduction to Statistical Learning: with Applications in R'
-twitterbookdraw::announce_winner(winner, book)
+book_url <- "http://geni.us/introtostatslearning"
+twitterbookdraw::announce_winner(winner, book, book_url)
 }

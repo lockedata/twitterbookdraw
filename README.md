@@ -18,7 +18,8 @@ winner <- twitterbookdraw::draw_winner()
 
 # prepare tweet text
 book <- 'An Introduction to Statistical Learning: with Applications in R'
-twitterbookdraw::announce_winner(winner, book)
+book_url <- "http://geni.us/introtostatslearning"
+twitterbookdraw::announce_winner(winner, book, book_url)
 
 # save gif as "june.gif"
 twitterbookdraw::show_june_winner(winner = winner, path = "june.gif")
