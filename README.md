@@ -9,6 +9,25 @@ Winners have always been sampled via R ( `twitteR` and now `rtweet`). Since 2018
 
 # Results!
 
+## 2018-07-01
+
+Install gifski from https://github.com/r-rust/gifski or if you're on Windows grab the pre-compiled binary at https://ci.appveyor.com/project/jeroen/gifski/build/artifacts
+
+```r
+# devtools::install_github("lockedata/twitterbookdraw")
+# draw winner
+winner <- twitterbookdraw::draw_winner()
+
+# prepare tweet text
+book <- 'SQL Cookbook'
+book_url <- "http://geni.us/sqlcookbook"
+twitterbookdraw::announce_winner(winner, book, book_url)
+
+# save gif as "june.gif"
+twitterbookdraw::show_july_winner(winner = winner, path = "july.gif")
+
+```
+
 ## 2018-06-01
 
 ```r

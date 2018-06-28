@@ -13,4 +13,9 @@ Imports:
     dplyr,
     rtweet,
     magrittr,
-    glue
+    glue,
+    gifski,
+    ggplot2,
+    ggimage
+Remotes:
+    r-rust/gifski
