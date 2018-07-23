@@ -49,7 +49,7 @@ show_august_winner <- function(winner, path = "destruction.gif"){
     df2$frame <- 2
     dfall <- rbind(df, df2)
 
-    ggplot(dfall) +
+    p <- ggplot(dfall) +
       annotate("text", label = winner$name,
                x = 5, y = 5,
                size = 12, family = "Roboto",
@@ -66,8 +66,7 @@ show_august_winner <- function(winner, path = "destruction.gif"){
       ease_aes('sine-in-out') +
       theme_void() +
       coord_cartesian(xlim = lims, ylim = lims)
-
-    gganimate::anim_save("gifff.gif", last_animation())
+    gganimate::anim_save("gifff.gif", animate(p))
    # now crop because ylim somehow didn't work
     # gif <- magick::image_read("gifff.gif")
     #
