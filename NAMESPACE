@@ -3,6 +3,7 @@
 export("%>%")
 export(announce_winner)
 export(draw_winner)
+export(show_august_winner)
 export(show_july_winner)
 export(show_june_winner)
 import(ggimage)

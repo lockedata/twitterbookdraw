@@ -8,7 +8,8 @@
 #'
 #' @export
 #'
-show_august_winner <- function(winner, path = "july.gif"){
+show_august_winner <- function(winner, path = "destruction.gif"){
+
   # adapted from https://r-spatial.github.io/sf/reference/geos_unary.html
   lims <- c(0, 10)
   # sample 10 points
@@ -48,7 +49,7 @@ show_august_winner <- function(winner, path = "july.gif"){
     df2$frame <- 2
     dfall <- rbind(df, df2)
 
-    p <- ggplot(dfall) +
+    ggplot(dfall) +
       annotate("text", label = winner$name,
                x = 5, y = 5,
                size = 12, family = "Roboto",
@@ -68,30 +69,30 @@ show_august_winner <- function(winner, path = "july.gif"){
 
     gganimate::anim_save("gifff.gif", last_animation())
    # now crop because ylim somehow didn't work
-    gif <- magick::image_read("gifff.gif")
-
-    purrr::walk(1:length(gif),
-                function(x){
-                  magick::image_write(gif,
-                                      sprintf("plot2_%02d.png", x))
-                })
-
-    # add first images
-    purrr::walk(1:10, plot_one, df)
-
-    images <- sort(as.character(
-      fs::dir_ls(regexp = "plot")))
-    # get dims
-    dims <- magick::image_info(gif[1])
-
-    gifski::gifski(images,
-                   gif_file = path,
-                   delay = 0.1,
-                   width = dims$width,
-                   height = dims$height)
-
-    fs::file_delete(fs::dir_ls(regexp = "plot"))
-    fs::file_delete("gifff.gif")
+    # gif <- magick::image_read("gifff.gif")
+    #
+    # purrr::walk(1:length(gif),
+    #             function(x){
+    #               gif[x]  %>%
+    #               magick::image_write(sprintf("plot2_%02d.png", x))
+    #             })
+    #
+    # # add first images
+    # purrr::walk(1:10, plot_one, df)
+    #
+    # images <- sort(as.character(
+    #   fs::dir_ls(regexp = "plot")))
+    # # get dims
+    # dims <- magick::image_info(gif[1])
+    #
+    # gifski::gifski(images,
+    #                gif_file = path,
+    #                delay = 0.1,
+    #                width = dims$width,
+    #                height = dims$height)
+    #
+    # fs::file_delete(fs::dir_ls(regexp = "plot"))
+    # fs::file_delete("gifff.gif")
 }
 
 get_df_from_polygon <- function(polygon, index){
@@ -100,13 +101,6 @@ get_df_from_polygon <- function(polygon, index){
                  y = mat[,2],
                  tile = index)
 }
-
-transform_to_df <- function(sim, step, followers){
-  df <- tibble::as_tibble(sim)
-  df$step <- step
-  df
-}
-
 plot_one <- function(step, df){
   cols <- colorRampPalette(c("#2165B6", "white"))(10)
   ggplot(df)  +
@@ -114,8 +108,11 @@ plot_one <- function(step, df){
                  fill = "#2165B6", col = cols[step]) +
     theme_void()
 
-  outfil <- sprintf("plot1_%02d.png", step)
+  outfil <- sprintf("plot1_%02d.gif", step)
   ggsave(outfil)
+  magick::image_read(outfil) %>%
+    magick::image_resize("480x480") %>%
+    magick::image_write(outfil)
   outfil
 
 }

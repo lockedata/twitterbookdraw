@@ -9,6 +9,26 @@ Winners have always been sampled via R ( `twitteR` and now `rtweet`). Since 2018
 
 # Results!
 
+## 2018-08-01
+
+Now `gifski` is on CRAN! But `gganimate`'s latest version isn't.
+
+```r
+# devtools::install_github("thomasp85/gganimate")
+# devtools::install_github("lockedata/twitterbookdraw")
+# draw winner
+winner <- twitterbookdraw::draw_winner()
+
+# prepare tweet text
+book <- 'Weapons of math destruction'
+book_url <- "http://geni.us/mathdestruction"
+twitterbookdraw::announce_winner(winner, book, book_url)
+
+# save gif as "destruction.gif"
+twitterbookdraw::show_august_winner(winner = winner, path = "destruction.gif")
+
+```
+
 ## 2018-07-01
 
 Install gifski from https://github.com/r-rust/gifski or if you're on Windows grab the pre-compiled binary at https://ci.appveyor.com/project/jeroen/gifski/build/artifacts

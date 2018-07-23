@@ -16,6 +16,8 @@ Imports:
     glue,
     gifski,
     ggplot2,
-    ggimage
+    ggimage,
+    gganimate,
+    fs
 Remotes:
-    r-rust/gifski
+    thomasp85/gganimate
