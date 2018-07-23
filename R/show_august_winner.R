@@ -67,7 +67,7 @@ show_august_winner <- function(winner, path = "destruction.gif"){
       theme_void() +
       coord_cartesian(xlim = lims, ylim = lims)
     gganimate::anim_save("gifff.gif", animate(p))
-   # now crop because ylim somehow didn't work
+   # try to add images before the animation
     # gif <- magick::image_read("gifff.gif")
     #
     # purrr::walk(1:length(gif),
