@@ -1,7 +1,7 @@
 #' Show August winner with a gif
 #'
 #' @import ggplot2
-#' @import ggimage
+#' @import gganimate
 #'
 #' @param winner as given by twitterbookdraw::draw_winner()
 #' @param path where to save the gif?
@@ -14,7 +14,7 @@ show_august_winner <- function(winner, path = "destruction.gif"){
   lims <- c(0, 10)
   # sample 10 points
   with(set.seed(42),
-         points <- sf::st_multipoint(matrix(runif(n = 60, lims[1],
+         points <- sf::st_multipoint(matrix(runif(n = 300, lims[1],
                                                   lims[2]),,2)))
 
    # get a square box that'll be the area of our animation
@@ -44,7 +44,7 @@ show_august_winner <- function(winner, path = "destruction.gif"){
     # a bit random but it does look ok!
 
     df2$y[!df2$border] <- df2$y[!df2$border] - runif(n = sum(!df2$border),
-                                                     min = 5, max = 10)
+                                                     min = 9, max = 12)
     df$frame <- 1
     df2$frame <- 2
     dfall <- rbind(df, df2)
@@ -66,32 +66,28 @@ show_august_winner <- function(winner, path = "destruction.gif"){
       ease_aes('sine-in-out') +
       theme_void() +
       coord_cartesian(xlim = lims, ylim = lims)
-    gganimate::anim_save("gifff.gif", animate(p))
-   # try to add images before the animation
-    # gif <- magick::image_read("gifff.gif")
-    #
-    # purrr::walk(1:length(gif),
-    #             function(x){
-    #               gif[x]  %>%
-    #               magick::image_write(sprintf("plot2_%02d.png", x))
-    #             })
-    #
-    # # add first images
-    # purrr::walk(1:10, plot_one, df)
-    #
-    # images <- sort(as.character(
-    #   fs::dir_ls(regexp = "plot")))
-    # # get dims
-    # dims <- magick::image_info(gif[1])
-    #
-    # gifski::gifski(images,
-    #                gif_file = path,
-    #                delay = 0.1,
-    #                width = dims$width,
-    #                height = dims$height)
-    #
-    # fs::file_delete(fs::dir_ls(regexp = "plot"))
-    # fs::file_delete("gifff.gif")
+
+    # create and save frames
+      fs::dir_create("august_frames")
+      p
+      files <- animate(p,
+                       renderer = file_renderer(dir = "august_frames",
+                                                prefix = "plot2_") )
+
+    # add first images
+    purrr::walk(1:10, plot_one, df)
+
+    images <- sort(as.character(
+       fs::dir_ls("august_frames")))
+
+   gifski::gifski(images,
+                    gif_file = path,
+                    delay = 0.1,
+                    width = 480,
+                    height = 480)
+
+   # clean
+     fs::dir_delete("august_frames")
 }
 
 get_df_from_polygon <- function(polygon, index){
@@ -100,6 +96,7 @@ get_df_from_polygon <- function(polygon, index){
                  y = mat[,2],
                  tile = index)
 }
+
 plot_one <- function(step, df){
   cols <- colorRampPalette(c("#2165B6", "white"))(10)
   ggplot(df)  +
@@ -107,8 +104,9 @@ plot_one <- function(step, df){
                  fill = "#2165B6", col = cols[step]) +
     theme_void()
 
-  outfil <- sprintf("plot1_%02d.gif", step)
-  ggsave(outfil)
+  outfil <- file.path("august_frames",
+                      sprintf("plot1_%02d.png", step))
+  ggsave(outfil, width = 6.7, height = 6.7)
   magick::image_read(outfil) %>%
     magick::image_resize("480x480") %>%
     magick::image_write(outfil)

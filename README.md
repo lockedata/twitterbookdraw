@@ -13,8 +13,11 @@ Winners have always been sampled via R ( `twitteR` and now `rtweet`). Since 2018
 
 Now `gifski` is on CRAN! But `gganimate`'s latest version isn't.
 
+This code cannot be run in RStudio cf https://github.com/rstudio/rstudio/issues/2919
+
 ```r
 # devtools::install_github("thomasp85/gganimate")
+# or fetch the artifact from https://ci.appveyor.com/project/thomasp85/gganimate/build/artifacts
 # devtools::install_github("lockedata/twitterbookdraw")
 # draw winner
 winner <- twitterbookdraw::draw_winner()
@@ -25,6 +28,8 @@ book_url <- "http://geni.us/mathdestruction"
 twitterbookdraw::announce_winner(winner, book, book_url)
 
 # save gif as "destruction.gif"
+# a folder called august_frames will be created
+# and then deleted
 twitterbookdraw::show_august_winner(winner = winner, path = "destruction.gif")
 
 ```

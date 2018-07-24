@@ -4,7 +4,7 @@
 \alias{show_august_winner}
 \title{Show August winner with a gif}
 \usage{
-show_august_winner(winner, path = "july.gif")
+show_august_winner(winner, path = "destruction.gif")
 }
 \arguments{
 \item{winner}{as given by twitterbookdraw::draw_winner()}
