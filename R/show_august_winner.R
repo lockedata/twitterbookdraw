@@ -43,8 +43,7 @@ show_august_winner <- function(winner, path = "destruction.gif"){
     df2  <- df
     # a bit random but it does look ok!
 
-    df2$y[!df2$border] <- df2$y[!df2$border] - runif(n = sum(!df2$border),
-                                                     min = 9, max = 12)
+    df2$y[!df2$border] <- - 2
     df$frame <- 1
     df2$frame <- 2
     dfall <- rbind(df, df2)
@@ -63,7 +62,7 @@ show_august_winner <- function(winner, path = "destruction.gif"){
         state_length = 1,
         wrap = FALSE
       ) +
-      ease_aes('sine-in-out') +
+      ease_aes('exponential-in') +
       theme_void() +
       coord_cartesian(xlim = lims, ylim = lims)
 
