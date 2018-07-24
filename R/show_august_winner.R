@@ -14,7 +14,7 @@ show_august_winner <- function(winner, path = "destruction.gif"){
   lims <- c(0, 10)
   # sample 10 points
   with(set.seed(42),
-         points <- sf::st_multipoint(matrix(runif(n = 300, lims[1],
+         points <- sf::st_multipoint(matrix(runif(n = 400, lims[1],
                                                   lims[2]),,2)))
 
    # get a square box that'll be the area of our animation
@@ -37,16 +37,21 @@ show_august_winner <- function(winner, path = "destruction.gif"){
 
     df <- dplyr::group_by(df, tile) %>%
       dplyr::mutate(border = any(x %in% lims) |
-                      any(y %in% lims))
+                      any(y == lims[2]))
 
     # Define the second state with tiles fallen
     df2  <- df
     # a bit random but it does look ok!
 
-    df2$y[!df2$border] <- - 2
+    df2 <- dplyr::group_by(df2, tile) %>%
+      dplyr::mutate(y = ifelse(!border,
+                               -2 - min(y) + y,
+                               y)) %>%
+     dplyr::ungroup()
+
     df$frame <- 1
     df2$frame <- 2
-    dfall <- rbind(df, df2)
+    dfall <- dplyr::bind_rows(df, df2)
 
     p <- ggplot(dfall) +
       annotate("text", label = winner$name,
