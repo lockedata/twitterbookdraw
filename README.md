@@ -3,7 +3,7 @@ Produce a visualization of the winner of the book of the month
 
 Each month, a random [Locke Data](https://twitter.com/LockeData) follower wins a book! See it for yourself in [this Twitter moment](https://twitter.com/i/moments/982169969008918528), and follow Locke Data if you want to try and win a book next month!
 
-Winners have always been sampled via R ( `twitteR` and now `rtweet`). Since 2018/03, the winner is announced with a fun R viz as well! This repo contains the code for such visualizations.
+Winners have always been sampled via R ( `twitteR` and now `rtweet`). Since 2018/03, the winner is announced with a fun R viz as well! This repo contains the code for such visualizations. 
 
 
 
